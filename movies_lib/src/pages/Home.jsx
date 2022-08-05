@@ -12,18 +12,20 @@ const Home = () => {
         const res = await fetch(url); //Vai ter uma resposta baseada no 'await'
         const data = await res.json(); //Tranforma esses dados recebidos em um array de JavaScript
     
-        console.log(data);
+        setTopMovies(data.results);
     };
 
     useEffect(() => {
         const topRatedUrl = `${moviesURL}top_rated?${apiKey}`; //Montou-se uma url para poder acessar os filmes melhores avaliados
         console.log(topRatedUrl);
-        getTopRatedMovies(topRatedUrl);
+        getTopRatedMovies(topRatedUrl); //Faz a chamada de Fetch
     }, []);
 
-    return (
-        <div>Home</div>
+    return ( //Se 'topMovies' tiverem preenchidos, imprime o título do filme
+        <div>
+            {topMovies && topMovies.map((movie) => <p>{movie.title}</p>)}
+        </div>
     );
-}
+};
 
 export default Home;
